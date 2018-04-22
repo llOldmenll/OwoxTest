@@ -2,6 +2,7 @@ package com.oldmen.owoxtest.presentation.ui.main.pager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
 import com.oldmen.owoxtest.domain.models.ImageUnsplash;
 import com.oldmen.owoxtest.presentation.ui.main.pager.image.ImageFragment;
 

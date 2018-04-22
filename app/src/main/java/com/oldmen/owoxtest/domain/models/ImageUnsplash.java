@@ -5,8 +5,6 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
-
 import static com.oldmen.owoxtest.utils.Constants.IMAGESUNSPLASH_TABLE_NAME;
 
 @Entity(tableName = IMAGESUNSPLASH_TABLE_NAME)

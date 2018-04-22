@@ -3,7 +3,6 @@ package com.oldmen.owoxtest.utils;
 import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.oldmen.owoxtest.data.database.AppDataBase;
 import com.oldmen.owoxtest.data.repositories.SharedPrefHelper;
@@ -11,7 +10,6 @@ import com.oldmen.owoxtest.data.repositories.SharedPrefHelper;
 import java.lang.ref.WeakReference;
 
 import io.reactivex.Completable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -29,10 +27,6 @@ public class CustomApplication extends Application {
         dataBase = Room.databaseBuilder(getApplicationContext(), AppDataBase.class, DATA_BASE_NAME)
                 .build();
         dropData();
-    }
-
-    public static CustomApplication getApplication() {
-        return instance;
     }
 
     public static Context getAppContext() {

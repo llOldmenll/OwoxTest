@@ -9,4 +9,5 @@
     <string name="size_400_format">size: 400 × %d</string>
     <string name="size_1080_format">size: 1080 × %d</string>
     <string name="original_size_format">size: %d × %d</string>
+    <string name="no_internet_msg">Connection Failed! Please check your internet connection!</string>
 </resources>

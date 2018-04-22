@@ -8,9 +8,7 @@ import com.oldmen.owoxtest.domain.models.ImageUnsplash;
 
 import java.util.List;
 
-import io.reactivex.Completable;
 import io.reactivex.Flowable;
-import io.reactivex.Single;
 
 import static com.oldmen.owoxtest.utils.Constants.IMAGESUNSPLASH_TABLE_NAME;
 

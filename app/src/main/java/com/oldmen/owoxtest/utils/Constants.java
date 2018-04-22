@@ -4,7 +4,6 @@ public class Constants {
 
     //EXTRAS
     public static final String EXTRA_IMAGES_INFO_LIST = "EXTRA_IMAGES_INFO_LIST";
-    public static final String APPBAR_STATE = "APPBAR_STATE";
 
     //ARGS
     public static final String ARG_IMAGE_INFO = "ARG_IMAGE_INFO";

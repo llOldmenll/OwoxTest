@@ -127,10 +127,9 @@ public class PagerPresenter extends MvpPresenter<PagerView> implements BasePrese
             context.get().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(myDir)));
         }
 
-        String imgName = name.trim() + ".jpg";
-        File file = new File(myDir, imgName);
-        if (file.exists())
-            file.delete();
+        File file = new File(myDir, name.trim() + ".jpg");
+        if (file.exists()) file.delete();
+
         try {
             FileOutputStream out = new FileOutputStream(file);
             finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);

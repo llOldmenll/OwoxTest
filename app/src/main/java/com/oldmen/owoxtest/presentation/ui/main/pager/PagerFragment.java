@@ -1,14 +1,13 @@
 package com.oldmen.owoxtest.presentation.ui.main.pager;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -32,7 +31,6 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.oldmen.owoxtest.R;
 import com.oldmen.owoxtest.domain.models.ImageUnsplash;
@@ -42,8 +40,6 @@ import com.oldmen.owoxtest.presentation.ui.main.pager.image.ImageFragment;
 import com.oldmen.owoxtest.utils.GlideApp;
 import com.oldmen.owoxtest.utils.ZoomOutPageTransformer;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -120,6 +116,7 @@ public class PagerFragment extends MvpAppCompatFragment implements PagerView, Im
     private void initPager() {
         mPagerAdapter = new ImagePagerAdapter(this, mImages);
         mPager.setAdapter(mPagerAdapter);
+        mPager.setOffscreenPageLimit(5);
         mPager.setPageTransformer(true, new ZoomOutPageTransformer());
         mPager.setCurrentItem(mPresenter.getCurrentPosition());
         mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -228,7 +225,11 @@ public class PagerFragment extends MvpAppCompatFragment implements PagerView, Im
 
     @Override
     public void showNoInternetMsg(DialogInterface.OnClickListener listener) {
-
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setMessage(getString(R.string.no_internet_msg));
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), listener);
+        alertDialog.show();
+        mIsDownloading = false;
     }
 
     @Override

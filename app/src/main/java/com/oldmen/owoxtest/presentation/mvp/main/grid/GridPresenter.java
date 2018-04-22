@@ -6,10 +6,6 @@ import android.widget.ImageView;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.oldmen.owoxtest.data.database.ImagesUnsplashDao;
-import com.oldmen.owoxtest.data.network.ImageInfoDeserializer;
 import com.oldmen.owoxtest.data.network.CallbackWrapper;
 import com.oldmen.owoxtest.data.network.RetrofitClient;
 import com.oldmen.owoxtest.data.repositories.SharedPrefHelper;
@@ -30,7 +26,6 @@ public class GridPresenter extends MvpPresenter<GridView> implements BasePresent
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
-        loadImages();
         CustomApplication.getDbInstance().getImagesDao().getAll()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

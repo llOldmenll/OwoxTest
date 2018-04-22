@@ -1,11 +1,13 @@
 package com.oldmen.owoxtest.presentation.ui.main.grid;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.SharedElementCallback;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -44,6 +47,8 @@ public class GridFragment extends MvpAppCompatFragment implements GridView {
     SearchView mSearch;
     @BindView(R.id.appbar_main)
     AppBarLayout mAppbar;
+    @BindView(R.id.swipe_to_refresh_grid)
+    SwipeRefreshLayout mSwipeToRefresh;
 
     private Unbinder unbinder;
     private GridAdapter mAdapter;
@@ -57,6 +62,8 @@ public class GridFragment extends MvpAppCompatFragment implements GridView {
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
         unbinder = ButterKnife.bind(this, view);
         initRecycler();
+        initSearch();
+        initSwipeToRefresh();
         prepareTransitions();
         postponeEnterTransition();
         return view;
@@ -67,7 +74,6 @@ public class GridFragment extends MvpAppCompatFragment implements GridView {
         super.onViewCreated(view, savedInstanceState);
         scrollToPosition();
         mAppbar.requestFocus();
-
     }
 
     @Override
@@ -104,6 +110,7 @@ public class GridFragment extends MvpAppCompatFragment implements GridView {
             public boolean onQueryTextSubmit(String query) {
                 mPresenter.saveSearchQuery(query);
                 mPresenter.saveCurrentPage(0);
+                mPresenter.saveCurrentPosition(0);
                 mPresenter.loadImages();
                 return false;
             }
@@ -112,6 +119,18 @@ public class GridFragment extends MvpAppCompatFragment implements GridView {
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
+        });
+    }
+
+    private void initSwipeToRefresh() {
+        mSwipeToRefresh.setOnRefreshListener(() -> {
+            mSearch.setQuery("", false);
+            mSearch.clearFocus();
+            mPresenter.saveSearchQuery("");
+            mPresenter.saveCurrentPage(0);
+            mPresenter.saveCurrentPosition(0);
+            mPresenter.loadImages();
+            mSwipeToRefresh.setRefreshing(false);
         });
     }
 
@@ -188,11 +207,16 @@ public class GridFragment extends MvpAppCompatFragment implements GridView {
 
     @Override
     public void showNoInternetMsg(DialogInterface.OnClickListener listener) {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setMessage(getString(R.string.no_internet_msg));
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(android.R.string.ok), listener);
+        alertDialog.show();
         mIsDownloading = false;
     }
 
     @Override
     public void showErrorMsg(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
         mIsDownloading = false;
     }
 
@@ -218,10 +242,5 @@ public class GridFragment extends MvpAppCompatFragment implements GridView {
                     .replace(R.id.fragment_container_main, fragment, PagerFragment.class.getSimpleName())
                     .addToBackStack(null)
                     .commit();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 }
