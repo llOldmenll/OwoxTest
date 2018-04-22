@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/footer_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:alpha="0.8"
+        android:background="@color/colorPrimaryDark"
+        android:padding="@dimen/view_margin_micro">
+
+        <ImageView
+            android:id="@+id/author_avatar_pager"
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            android:elevation="@dimen/tb_elevation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/author_name_pager"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin_medium"
+            android:elevation="@dimen/tb_elevation"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="2"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_size_big"
+            app:layout_constraintBottom_toBottomOf="@id/author_avatar_pager"
+            app:layout_constraintEnd_toStartOf="@id/btn_share_pager"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/author_avatar_pager"
+            app:layout_constraintTop_toTopOf="@id/author_avatar_pager"
+            tools:text="Stefan Polar" />
+
+        <ImageButton
+            android:id="@+id/btn_download_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:elevation="@dimen/tb_elevation"
+            android:paddingEnd="@dimen/view_margin_medium"
+            android:paddingStart="@dimen/view_margin_medium"
+            android:src="@drawable/ic_action_download"
+            app:layout_constraintBottom_toBottomOf="@id/author_avatar_pager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/author_avatar_pager"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/btn_share_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:elevation="@dimen/tb_elevation"
+            android:paddingEnd="@dimen/view_margin_medium"
+            android:paddingStart="@dimen/view_margin_medium"
+            android:src="@drawable/ic_action_share"
+            app:layout_constraintBottom_toBottomOf="@id/author_avatar_pager"
+            app:layout_constraintEnd_toStartOf="@id/btn_download_pager"
+            app:layout_constraintTop_toTopOf="@id/author_avatar_pager"
+            tools:ignore="ContentDescription" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

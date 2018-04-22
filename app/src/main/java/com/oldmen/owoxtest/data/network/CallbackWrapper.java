@@ -1,4 +1,4 @@
-package com.oldmen.owoxtest.network;
+package com.oldmen.owoxtest.data.network;
 
 import com.oldmen.owoxtest.presentation.mvp.base.BaseView;
 
@@ -23,8 +23,13 @@ public abstract class CallbackWrapper<T extends Response> extends DisposableObse
 
     @Override
     public void onNext(T t) {
-        //You can return StatusCodes of different cases from your API and handle it here. I usually include these cases on BaseResponse and iherit it from every Response
-        onSuccess(t, Integer.parseInt(t.headers().get("X-Per-Page")), Integer.parseInt(t.headers().get("X-Total")));
+        int perPage = 0;
+        int total = 0;
+        if (t.headers().get("X-Per-Page") != null)
+            perPage = Integer.parseInt(t.headers().get("X-Per-Page"));
+        if (t.headers().get("X-Total") != null)
+            total = Integer.parseInt(t.headers().get("X-Total"));
+        onSuccess(t, perPage, total);
     }
 
     @Override

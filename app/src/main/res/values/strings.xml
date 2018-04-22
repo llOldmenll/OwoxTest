@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">OwoxTest</string>
+    <string name="shareLink">Share image unsplash link!</string>
+
+    <string name="menu_400_x">400 × </string>
+    <string name="menu_1080_x">1080 × </string>
+    <string name="menu_original_size">original size</string>
+
+    <string name="size_400_format">size: 400 × %d</string>
+    <string name="size_1080_format">size: 1080 × %d</string>
+    <string name="original_size_format">size: %d × %d</string>
 </resources>

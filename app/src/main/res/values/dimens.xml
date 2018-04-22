@@ -1,5 +1,37 @@
 <resources>
+    <dimen name="group_view_padding_micro">4dp</dimen>
+    <dimen name="group_view_padding_min">8dp</dimen>
 
-    <dimen name="image_height">200dp</dimen>
+    <dimen name="view_margin_min">8dp</dimen>
+    <dimen name="view_margin_micro">4dp</dimen>
+    <dimen name="view_margin_medium">16dp</dimen>
+    <dimen name="view_padding_medium">16dp</dimen>
+
+    <dimen name="text_size_tiny">10sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_big">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_huge">24sp</dimen>
+    <dimen name="text_size_huge_plus">36sp</dimen>
+    <dimen name="text_size_48">48sp</dimen>
+
+    <dimen name="text_margin_micro">4dp</dimen>
+    <dimen name="text_margin_min">8dp</dimen>
+    <dimen name="text_margin_medium">16dp</dimen>
+    <dimen name="text_margin_large">24dp</dimen>
+    <dimen name="text_margin_huge">32dp</dimen>
+    <dimen name="text_margin_huge_plus">32dp</dimen>
+    <dimen name="text_padding_micro">4dp</dimen>
+    <dimen name="text_padding_min">8dp</dimen>
+    <dimen name="text_padding_medium">16dp</dimen>
+    <dimen name="text_padding_big">24dp</dimen>
+    <dimen name="text_padding_large">32dp</dimen>
+    <dimen name="text_padding_huge">48dp</dimen>
+
+    <dimen name="image_height">176dp</dimen>
+    <dimen name="avatar_size">40dp</dimen>
     <dimen name="grid_item_divider_size">2dp</dimen>
+
+    <dimen name="tb_elevation">4dp</dimen>
 </resources>
