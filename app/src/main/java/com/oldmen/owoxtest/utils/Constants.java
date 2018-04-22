@@ -11,5 +11,4 @@ public class Constants {
     //DATABASE
     public static final String DATA_BASE_NAME = "images_unsplash";
     public static final String IMAGESUNSPLASH_TABLE_NAME = "imagesunsplash_table";
-
 }
