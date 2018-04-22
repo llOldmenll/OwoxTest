@@ -1,10 +1,10 @@
 package com.oldmen.owoxtest.presentation.ui.main.grid;
 
 import android.content.DialogInterface;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.SharedElementCallback;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,12 +42,13 @@ public class GridFragment extends MvpAppCompatFragment implements GridView {
     RecyclerView mRecycler;
     @BindView(R.id.search_grid)
     SearchView mSearch;
+    @BindView(R.id.appbar_main)
+    AppBarLayout mAppbar;
 
     private Unbinder unbinder;
     private GridAdapter mAdapter;
     private boolean mIsDownloading;
     private ArrayList<ImageUnsplash> mImagesInfo = new ArrayList<>();
-    private boolean isConfigurationChanged;
 
     @Nullable
     @Override
@@ -55,30 +56,24 @@ public class GridFragment extends MvpAppCompatFragment implements GridView {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
         unbinder = ButterKnife.bind(this, view);
+        initRecycler();
+        prepareTransitions();
+        postponeEnterTransition();
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initRecycler();
-        prepareTransitions();
-        postponeEnterTransition();
-        if (!isConfigurationChanged)
-            scrollToPosition();
-        isConfigurationChanged = false;
-    }
+        scrollToPosition();
+        mAppbar.requestFocus();
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        isConfigurationChanged = true;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        scrollToPosition();
+        mSearch.clearFocus();
     }
 
     private void initRecycler() {
@@ -143,7 +138,30 @@ public class GridFragment extends MvpAppCompatFragment implements GridView {
     }
 
     private void scrollToPosition() {
-        mRecycler.scrollToPosition(mPresenter.getCurrentPosition());
+//        mRecycler.scrollToPosition(mPresenter.getCurrentPosition());
+        mRecycler.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v,
+                                       int left,
+                                       int top,
+                                       int right,
+                                       int bottom,
+                                       int oldLeft,
+                                       int oldTop,
+                                       int oldRight,
+                                       int oldBottom) {
+                int position = mPresenter.getCurrentPosition();
+                mRecycler.removeOnLayoutChangeListener(this);
+                final RecyclerView.LayoutManager layoutManager = mRecycler.getLayoutManager();
+                View viewAtPosition = layoutManager.findViewByPosition(position);
+
+                if (viewAtPosition == null || layoutManager
+                        .isViewPartiallyVisible(viewAtPosition, true, true)) {
+                    layoutManager.scrollToPosition(position);
+//                    mRecycler.post(() -> layoutManager.scrollToPosition(position));
+                }
+            }
+        });
     }
 
     private void prepareTransitions() {
@@ -202,5 +220,8 @@ public class GridFragment extends MvpAppCompatFragment implements GridView {
                     .commit();
     }
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 }

@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.oldmen.owoxtest.data.network.CallbackWrapper;
-import com.oldmen.owoxtest.data.network.ImageInfoDeserializer;
 import com.oldmen.owoxtest.data.network.RetrofitClient;
 import com.oldmen.owoxtest.data.repositories.SharedPrefHelper;
 import com.oldmen.owoxtest.domain.models.ImageUnsplash;
@@ -29,9 +28,7 @@ import java.io.FileOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
@@ -54,8 +51,26 @@ public class PagerPresenter extends MvpPresenter<PagerView> implements BasePrese
     }
 
     @Override
+    @SuppressLint("CheckResult")
     public synchronized void loadImagesWithSearch(Gson gson) {
-
+        int currentPage = getCurrentPage();
+        RetrofitClient.getApiService(gson).getSearchPhotos(currentPage + 1, getSearchQuery())
+                .doOnNext(listResponse -> {
+                    List<ImageUnsplash> imagesInfo = listResponse.body();
+                    if (imagesInfo != null) {
+                        if (currentPage == 0) refreshImagesTable(imagesInfo);
+                        else appendImagesTable(imagesInfo);
+                    }
+                })
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new CallbackWrapper<Response<List<ImageUnsplash>>>(getViewState()) {
+                    @Override
+                    protected void onSuccess(Response response, int imgsPerPage, int imgsTotal) {
+                        if (currentPage == 0)
+                            savePagesNumber((int) Math.ceil((double) imgsTotal / (double) imgsPerPage));
+                    }
+                });
     }
 
     @Override

@@ -72,7 +72,6 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.GridHolder> {
             mImages.addAll(imagesList);
             notifyItemRangeChanged(mImages.size() - 1, imagesList.size());
         }
-
     }
 
     class GridHolder extends RecyclerView.ViewHolder {

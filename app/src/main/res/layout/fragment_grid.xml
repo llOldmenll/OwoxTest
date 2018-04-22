@@ -2,6 +2,7 @@
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/group_view_grid"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,7 +24,7 @@
                 android:id="@+id/search_grid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:iconifiedByDefault="true" />
+                app:iconifiedByDefault="false" />
 
         </android.support.v7.widget.Toolbar>
 
