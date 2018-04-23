@@ -26,6 +26,9 @@
         <activity
             android:name=".presentation.ui.main.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="932a2374b6c49452c12577ecf78df5fa6cd36e67" />
     </application>
 
 </manifest>
